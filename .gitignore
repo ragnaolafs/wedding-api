@@ -1,0 +1,59 @@
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+logs/
+
+# Visual Studio Code
+.vscode
+
+# Rider
+.idea
+
+docker-persistence/
+cobertura/
+coveragereport/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2015
+.vs/
+TrebleRestApi/Logs/
+
+# Unit testing
+*.cache
+*.ncrunchsolution
+/integration-tests/venom/results/*.json
+/integration-tests/venom/results/*.log
+
+*.code-workspace
+
+nuget.config
+
+appsettings.Development.json
+
+dist
+tsdk-py/Figures
+*:Zone.Identifier
