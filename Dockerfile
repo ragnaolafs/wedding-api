@@ -4,15 +4,19 @@ EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY *.csproj .
 RUN dotnet restore
 COPY . .
-RUN dotnet publish -c Release -o /publish
+RUN dotnet build -c %BUILD_CONFIGURATION% -o /app/build
+
 
 FROM build AS publish
-WORKDIR /publish
-COPY --from=build-env /publish .
-ENV ASPNETCORE_URLS=http://+:5000
-EXPOSE 5000
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "wedding.dll"]
