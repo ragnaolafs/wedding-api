@@ -1,10 +1,11 @@
+using DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
 namespace Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class GuestController : ControllerBase
 {
     private readonly GuestService _guestService;
@@ -19,5 +20,12 @@ public class GuestController : ControllerBase
     {
         var guests = await _guestService.GetGuests();
         return Ok(guests);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Register(GuestDto guestDto)
+    {
+        await _guestService.Register(guestDto);
+        return Ok();
     }
 }
