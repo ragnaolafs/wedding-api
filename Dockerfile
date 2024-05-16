@@ -5,9 +5,8 @@ EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /
 COPY *.csproj .
-RUN dotnet restore
+RUN dotnet restore ./*.csproj
 COPY . .
 RUN dotnet build -c %BUILD_CONFIGURATION% -o /app/build
 
