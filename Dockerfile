@@ -11,15 +11,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY *.csproj ./
+COPY wedding.csproj ./
 RUN dotnet restore
 COPY . .
 WORKDIR "/src"
-RUN dotnet build "./*.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+RUN dotnet build "wedding.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./*.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "wedding.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
