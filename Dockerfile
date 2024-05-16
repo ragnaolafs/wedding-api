@@ -1,24 +1,27 @@
-# Use the official .NET Core SDK as a parent image
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-# Copy the project file and restore any dependencies (use .csproj for the project name)
+#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
+#For more information, please see https://aka.ms/containercompat
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
 COPY *.csproj ./
 RUN dotnet restore
-
-# Copy the rest of the application code
 COPY . .
+WORKDIR "/src"
+RUN dotnet build "./*.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
-# Publish the application
-RUN dotnet publish -c Release -o out
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./*.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
-# Build the runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
-WORKDIR /
-COPY --from=build /out ./
-
-# Expose the port your application will run on
-EXPOSE 80
-
-# Start the application
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "wedding.dll"]
