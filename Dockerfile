@@ -8,11 +8,10 @@ COPY *.csproj ./
 RUN dotnet restore
 
 COPY . .
-WORKDIR "/src/wedding"
-RUN dotnet build "wedding.csproj" -c Release -o /app/build
+RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "wedding.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
