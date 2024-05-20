@@ -4,10 +4,11 @@ EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
 COPY ["wedding.csproj", "/"]
 RUN dotnet restore "/wedding.csproj"
 COPY . .
-WORKDIR "/"
+WORKDIR /src
 RUN dotnet build "wedding.csproj" -c Release -o /app/build
 
 FROM build AS publish
