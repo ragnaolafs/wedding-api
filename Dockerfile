@@ -6,7 +6,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["*.csproj", "/"]
-RUN dotnet restore "/*.csproj"
+RUN dotnet restore "/src/*.csproj"
 COPY . .
 WORKDIR "/src/wedding"
 RUN dotnet build "wedding.csproj" -c Release -o /app/build
