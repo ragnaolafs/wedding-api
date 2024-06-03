@@ -10,9 +10,9 @@ var corsOrigins = builder.Configuration.GetValue<string>("CORS_ORIGINS_CSV")?.Sp
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
-    builder.WithOrigins(corsOrigins)
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+        builder.WithOrigins(corsOrigins)
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 });
 
 builder.Services.AddControllers();
@@ -33,6 +33,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 

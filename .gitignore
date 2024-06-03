@@ -40,7 +40,6 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
-TrebleRestApi/Logs/
 
 # Unit testing
 *.cache
