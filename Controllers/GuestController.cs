@@ -25,7 +25,19 @@ public class GuestController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Register(GuestDto guestDto)
     {
-        await _guestService.Register(guestDto);
-        return Ok();
+        var guestEntity = await _guestService.Register(guestDto);
+        return Ok(new GuestDto(guestEntity));
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateFood(int id, string food)
+    {
+        var guestEntity = await _guestService.UpdateFood(id, food);
+        if (guestEntity == null)
+        {
+            return BadRequest("Guest not found");
+        }
+
+        return Ok(new GuestDto(guestEntity));
     }
 }

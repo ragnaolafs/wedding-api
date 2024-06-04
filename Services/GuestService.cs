@@ -1,4 +1,5 @@
 using Data;
+using Data.Entities;
 using DTOs;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,10 +20,23 @@ public class GuestService
         return guestEntities.Select(x => new GuestDto(x)).ToList();
     }
 
-    public async Task Register(GuestDto dto)
+    public async Task<GuestEntity> Register(GuestDto dto)
     {
-        var entity = dto.ToEntity();
-        _context.Guest.Add(entity);
+        var entity = _context.Guest.Add(dto.ToEntity());
         await _context.SaveChangesAsync();
+        return entity.Entity;
+    }
+
+    public async Task<GuestEntity> UpdateFood(int id, string food)
+    {
+        var guest = _context.Guest.FirstOrDefault(x => x.Id == id);
+        if (guest == null)
+        {
+            return null;
+        }
+
+        guest.Diet = food;
+        await _context.SaveChangesAsync();
+        return guest;
     }
 }
