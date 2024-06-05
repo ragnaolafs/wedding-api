@@ -1,6 +1,6 @@
 namespace Data.Entities;
 
-public class GuestEntity
+public class GuestEntity : IDateProperties
 {
     public int Id { get; set; }
 
@@ -11,4 +11,10 @@ public class GuestEntity
     public bool? Going { get; set; }
 
     public string? Diet { get; set; }
+
+    public int? SpouseId { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime? UpdatedAt { get; set; }
 }

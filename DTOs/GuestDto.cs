@@ -14,6 +14,12 @@ public class GuestDto
 
     public string? Diet { get; set; } = "Normal";
 
+    public int? SpouseId { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime? UpdatedAt { get; set; }
+
     public GuestDto() { }
 
     public GuestDto(GuestEntity guestEntity)
@@ -23,6 +29,9 @@ public class GuestDto
         LastName = guestEntity.LastName;
         Going = guestEntity.Going;
         Diet = guestEntity.Diet;
+        SpouseId = guestEntity.SpouseId;
+        CreatedAt = guestEntity.CreatedAt;
+        UpdatedAt = guestEntity.UpdatedAt;
     }
 
     public GuestEntity ToEntity()
@@ -33,6 +42,7 @@ public class GuestDto
             LastName = this.LastName,
             Going = this.Going,
             Diet = this.Diet,
+            SpouseId = this.SpouseId,
         };
     }
 }
