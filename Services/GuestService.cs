@@ -22,6 +22,12 @@ public class GuestService
 
     public async Task<GuestEntity> Register(GuestDto dto)
     {
+        if (dto.FirstName.ToLower().Contains("wheelb") || dto.FirstName.ToLower().Contains("hjólb"))
+        {
+            dto.LastName = $"{dto.LastName} ({dto.FirstName})";
+            dto.FirstName = "Hugi";
+        }
+        
         var entity = _context.Guest.Add(dto.ToEntity());
         await _context.SaveChangesAsync();
         return entity.Entity;
