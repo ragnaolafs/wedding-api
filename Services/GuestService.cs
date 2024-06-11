@@ -22,7 +22,8 @@ public class GuestService
 
     public async Task<GuestEntity> Register(GuestDto dto)
     {
-        if (dto.FirstName.ToLower().Contains("wheelb") || dto.FirstName.ToLower().Contains("hjólb"))
+        if (dto.FirstName.ToLower().Contains("wheelb") || dto.FirstName.ToLower().Contains("hjólb")
+         || dto.LastName.ToLower().Contains("wheelb") || dto.LastName.ToLower().Contains("hjólb"))
         {
             dto.LastName = $"{dto.LastName} ({dto.FirstName})";
             dto.FirstName = "Hugi";
