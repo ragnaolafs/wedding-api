@@ -15,7 +15,7 @@ public class GuestController : ControllerBase
         _guestService = guestService;
     }
 
-    [HttpGet]
+    //[HttpGet]
     public async Task<IActionResult> Get()
     {
         var guests = await _guestService.GetGuests();
